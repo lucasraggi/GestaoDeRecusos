@@ -94,16 +94,16 @@ public class Main {
             comando = scanner.nextInt();
             switch (comando){
                 case 1:
-                    recursoId = "Auditorio";
+                    recursoId[id] = "Auditorio";
                     break;
                 case 2:
-                    recursoId = "Laboratorio";
+                    recursoId[id] = "Laboratorio";
                     break;
                 case 3:
-                    recursoId = "Projetor";
+                    recursoId[id] = "Projetor";
                     break;
                 case 4:
-                    recursoId = "Sala";
+                    recursoId[id] = "Sala";
                     break;
             }
             System.out.println("Recurso cadastrado com sucesso!");
