@@ -12,31 +12,31 @@ public class Main {
     static int qntAuditorio;
     static int qntProjetor;
 
-    static int      qntRecurso = 0;
+    static int qntRecurso = 0;
     static String[] recursoId = new String[MAX];
     static String[] recursoStatus = new String[MAX];
-    static int[]    recursoDataDiaInicio = new int[MAX];
-    static int[]    recursoDataMesInicio = new int[MAX];
-    static int[]    recursoDataAnoInicio = new int[MAX];
-    static int[]    recursoHoraInicio = new int[MAX];
-    static int[]    recursoMinutoInicio = new int[MAX];
-    static int[]    recursoDataInicio = new int[MAX];
-    static int[]    recursoDataDiaTermino = new int[MAX];
-    static int[]    recursoDataMesTermino = new int[MAX];
-    static int[]    recursoDataAnoTermino = new int[MAX];
-    static int[]    recursoHoraTermino = new int[MAX];
-    static int[]    recursoMinutoTermino = new int[MAX];
-    static int[]    recursoDataTermino = new int[MAX];
+    static int[] recursoDataDiaInicio = new int[MAX];
+    static int[] recursoDataMesInicio = new int[MAX];
+    static int[] recursoDataAnoInicio = new int[MAX];
+    static int[] recursoHoraInicio = new int[MAX];
+    static int[] recursoMinutoInicio = new int[MAX];
+    static int[] recursoDataInicio = new int[MAX];
+    static int[] recursoDataDiaTermino = new int[MAX];
+    static int[] recursoDataMesTermino = new int[MAX];
+    static int[] recursoDataAnoTermino = new int[MAX];
+    static int[] recursoHoraTermino = new int[MAX];
+    static int[] recursoMinutoTermino = new int[MAX];
+    static int[] recursoDataTermino = new int[MAX];
     static String[] recursoResponsavel = new String[MAX];
     static String[] recursoResponsavelCargo = new String[MAX];
     static String[] recursoAtividade = new String[MAX];
     static String[] recursoTitulo = new String[MAX];
     static String[] recursoDescricao = new String[MAX];
     static String[][] recursoParticipantes = new String[MAX][1000];
-    static int[]    recursoQntParticipantes = new int[MAX];
+    static int[] recursoQntParticipantes = new int[MAX];
     static String[] recursoMaterialApoio = new String[MAX];
 
-    static int      qntUsuario = 0;
+    static int qntUsuario = 0;
     static String[] nomeUsuario = new String[MAX];
     static String[] emailUsuario = new String[MAX];
     static String[] cargoUsuario = new String[MAX];
@@ -50,12 +50,13 @@ public class Main {
     static int qntAtividadeLaboratorio = 0;
 
 
-    public static void exibirMenu(){
+    public static void exibirMenu() {
 
     }
 
     public static void cadastrarUsuario() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("------Cadastro de Usuario-----");
         System.out.println("Insira o nome do usuario:");
         nomeUsuario[qntUsuario] = scanner.nextLine().toUpperCase();
 
@@ -68,7 +69,7 @@ public class Main {
 
         int comando = scanner.nextInt();
         scanner.nextLine();
-        switch (comando){
+        switch (comando) {
             case 1:
                 cargoUsuario[qntUsuario] = "ALUNO DE GRADUACAO";
                 break;
@@ -94,11 +95,11 @@ public class Main {
     }
 
 
-
     public static void cadastrarRecurso(int qntAuditorio, int qntLaboratorio, int qntProjetor, int qntSalas) {
         Scanner scanner = new Scanner(System.in);
         int comando;
         int id;
+        System.out.println("------Cadastro de Recurso-----");
         System.out.println("Insira o id do usuario no qual voce quer cadastrar o recurso");
         exibirUsuariosNaoAlunos();
         id = scanner.nextInt();
@@ -110,7 +111,7 @@ public class Main {
         System.out.println("3 - Projetor");
         System.out.println("4 - Sala");
         comando = scanner.nextInt();
-        switch (comando){
+        switch (comando) {
             case 1:
                 recursoId[qntRecurso] = "Auditorio";
                 break;
@@ -123,7 +124,7 @@ public class Main {
             case 4:
                 recursoId[qntRecurso] = "Sala";
                 break;
-            }
+        }
         recursoStatus[qntRecurso] = "Em processo de alocacao";
         System.out.println("Recurso cadastrado com sucesso!");
         qntRecurso++;
@@ -167,14 +168,10 @@ public class Main {
         recursoDataTermino[id] = (recursoDataAnoTermino[id] * 365 * 24 * 60) + (recursoDataMesTermino[id] * 30 * 24 * 60) + (recursoDataDiaTermino[id] * 24 * 60) + (recursoHoraTermino[id] * 60) + (recursoMinutoTermino[id]);
 
         int i;
-        for(i = 0; i < qntRecurso; i++)
-        {
-            if(!recursoStatus[i].equals("Em processo de alocacao") && (id != i))
-            {
-                if(!recursoId[id].equals(recursoId[i]))
-                {
-                    if((recursoDataInicio[id] > recursoDataInicio[i] && recursoDataInicio[id] < recursoDataTermino[i]) || (recursoDataTermino[id] < recursoDataTermino[i] && recursoDataTermino[id] > recursoDataInicio[i]))
-                    {
+        for (i = 0; i < qntRecurso; i++) {
+            if (!recursoStatus[i].equals("Em processo de alocacao") && (id != i)) {
+                if (!recursoId[id].equals(recursoId[i])) {
+                    if ((recursoDataInicio[id] > recursoDataInicio[i] && recursoDataInicio[id] < recursoDataTermino[i]) || (recursoDataTermino[id] < recursoDataTermino[i] && recursoDataTermino[id] > recursoDataInicio[i])) {
                         System.out.println("Existe outro recurso marcado para esse horario.");
                         return;
                     }
@@ -189,16 +186,12 @@ public class Main {
         System.out.println("3 - Laboratorio");
         comando = scanner.nextInt();
         scanner.nextLine();
-        switch(comando)
-        {
+        switch (comando) {
             case 1:
-                if(recursoResponsavelCargo[id].equals("PROFESSOR"))
-                {
+                if (recursoResponsavelCargo[id].equals("PROFESSOR")) {
                     recursoAtividade[id] = "Aula Tradicional";
                     qntAtividadeAula++;
-                }
-                else
-                    {
+                } else {
                     System.out.println("Apenas professores podem alocar este tipo de atividade");
                     return;
                 }
@@ -208,12 +201,10 @@ public class Main {
                 qntAtividadeApresentacao++;
                 break;
             case 3:
-                if(recursoResponsavelCargo[id].equals("PROFESSOR"))
-                {
+                if (recursoResponsavelCargo[id].equals("PROFESSOR")) {
                     recursoAtividade[id] = "Laboratorio";
                     qntAtividadeLaboratorio++;
-                }
-                else{
+                } else {
                     System.out.println("Apenas professores podem alocar este tipo de atividade");
                     return;
                 }
@@ -228,9 +219,9 @@ public class Main {
         recursoQntParticipantes[id] = 0;
         System.out.println("Insira os usuarios participantes do recurso (digite \"SAIR\" quando tiver inserido todos os participantes");
         String participantes;
-        while(true){
+        while (true) {
             participantes = scanner.nextLine();
-            if(!participantes.equals("SAIR"))
+            if (!participantes.equals("SAIR"))
                 recursoParticipantes[id][recursoQntParticipantes[id]] = participantes;
             else
                 break;
@@ -243,30 +234,30 @@ public class Main {
         recursoStatus[id] = "Alocado";
     }
 
-    public static void relatorio(){
+    public static void relatorio() {
+        System.out.println("----------Relatorio---------");
         System.out.println("Numero de usuarios: " + qntUsuario);
-        for(int i = 0; i < qntRecurso; i++)
-        {
-            if(recursoStatus[i].equals("Em processo de alocacao"))
+        for (int i = 0; i < qntRecurso; i++) {
+            if (recursoStatus[i].equals("Em processo de alocacao"))
                 qntRecursoEmProcesso++;
-            if(recursoStatus[i].equals("Alocado"))
+            if (recursoStatus[i].equals("Alocado"))
                 qntRecursoAlocado++;
-            if(recursoStatus[i].equals("Em andamento"))
+            if (recursoStatus[i].equals("Em andamento"))
                 qntRecursoAndamento++;
-            if(recursoStatus[i].equals("Concluido"))
+            if (recursoStatus[i].equals("Concluido"))
                 qntRecursoConcluido++;
         }
         System.out.println("Numero de recursos em processo de alocacao: " + qntRecursoEmProcesso);
         System.out.println("Numero de recursos alocados: " + qntRecursoAlocado);
         System.out.println("Numero de recursos em andamento: " + qntRecursoAndamento);
         System.out.println("Numero de recursos concluido: " + qntRecursoConcluido);
-        System.out.println("Numero de atividade de aula: " +  qntAtividadeAula);
-        System.out.println("Numero de atividade de laboratorio: " +  qntAtividadeLaboratorio);
-        System.out.println("Numero de atividade de apresentacao: " +  qntAtividadeApresentacao);
+        System.out.println("Numero de atividade de aula: " + qntAtividadeAula);
+        System.out.println("Numero de atividade de laboratorio: " + qntAtividadeLaboratorio);
+        System.out.println("Numero de atividade de apresentacao: " + qntAtividadeApresentacao);
+        pularLinha();
     }
 
-    public static void consultarUsuario()
-    {
+    public static void consultarUsuario() {
         Scanner scanner = new Scanner(System.in);
         int id;
         System.out.println("Qual usuario voce deseja consultar?");
@@ -277,18 +268,15 @@ public class Main {
 
         System.out.println("Nome: " + nomeUsuario[id] + "/n" + "Cargo: " + cargoUsuario[id] + "/n" + emailUsuario[id] + "/n");
         System.out.println("Atividades:");
-        for(int i = 0, j = 1; i < qntRecurso; i++)
-        {
-            if(recursoResponsavel[i].equals(nomeUsuario[id]))
-            {
+        for (int i = 0, j = 1; i < qntRecurso; i++) {
+            if (recursoResponsavel[i].equals(nomeUsuario[id])) {
                 System.out.println(j + "- Recurso: " + recursoId[i] + "; Tipo: " + recursoAtividade[i]);
                 j++;
             }
         }
     }
 
-    public static void consultarRecurso()
-    {
+    public static void consultarRecurso() {
         Scanner scanner = new Scanner(System.in);
         int id;
         System.out.println("Qual recurso voce deseja consultar?");
@@ -297,8 +285,8 @@ public class Main {
         scanner.nextLine();
         id = id - 1;
 
-        if(!recursoStatus[id].equals("Em processo de alocacao"))
-        {
+        if (!recursoStatus[id].equals("Em processo de alocacao")) {
+            System.out.println("---------Status do Recurso---------");
             System.out.println("Atividade: " + recursoAtividade[id]);
             System.out.println("Titulo: " + recursoTitulo[id]);
             System.out.println("Descicao: " + recursoDescricao[id]);
@@ -307,28 +295,51 @@ public class Main {
             System.out.println("Data de termino " + recursoDataDiaTermino[id] + "/" + recursoDataMesTermino[id] + "/" + recursoDataAnoTermino[id]);
             System.out.println("Horario de inicio: " + recursoHoraInicio[id] + ":" + recursoMinutoInicio[id]);
             System.out.println("Horario de termino: " + recursoHoraTermino[id] + ":" + recursoMinutoTermino[id]);
+            System.out.println("Status do Recurso: " + recursoStatus[id]);
         }
     }
 
+    public static void editarRecurso() {
+        Scanner scanner = new Scanner(System.in);
+        int comando;
+        int id;
+        System.out.println("------Editar Recurso------");
+        System.out.println("1 - Confirmar Recurso");
+        System.out.println("2 - Concluir Recurso");
+        comando = scanner.nextInt();
 
+        switch(comando) {
+            case 1:
+                System.out.println("Insira o id do recurso que voce deseja confirmar");
+                exibirRecursosAlocado();
+                id = scanner.nextInt();
+                recursoStatus[id] = "Em andamento";
+                break;
 
+            case 2:
+                System.out.println("Insira o id do recurso que voce deseja concluir");
+                exibirRecursosConcluido();
+                id = scanner.nextInt();
+                recursoStatus[id] = "Concluido";
+                break;
+        }
+
+    }
     public static void exibirUsuario() {
-        for (int i = 0; i < qntUsuario; i++)
-        {
+        for (int i = 0; i < qntUsuario; i++) {
             System.out.println((i + 1) + "- Nome: " + nomeUsuario[i] + "; Cargo: " + cargoUsuario[i]);
         }
         System.out.println("\n");
     }
 
     public static void exibirRecurso() {
-        for(int i = 0; i < qntRecurso; i++)
-        {
+        for (int i = 0; i < qntRecurso; i++) {
             System.out.println((i + 1) + "- " + "Recurso: " + recursoId[i] + "; Responsavel: " + recursoResponsavel[i] + "; Status: " + recursoStatus[i]);
         }
 
     }
 
-    public static int[] convertStringToTime(String timeString){
+    public static int[] convertStringToTime(String timeString) {
         int time[] = new int[2];
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -338,51 +349,60 @@ public class Main {
             time[0] = calendar.get(Calendar.HOUR_OF_DAY);
             time[1] = calendar.get(Calendar.MINUTE);
             return time;
-        } catch (java.text.ParseException ex)
-        {
+        } catch (java.text.ParseException ex) {
 
         }
         return time;
     }
 
     public static void exibirUsuariosNaoAlunos() {
-        for(int i = 0; i < qntUsuario; i++)
-        {
-            if(!(cargoUsuario[i].equals("ALUNO DE GRADUACAO") || cargoUsuario[i].equals("ALUNO DE MESTRADO") || cargoUsuario[i].equals("ALUNO DE DOUTORADO")))
-            {
-                System.out.println("Id: "+ i + "; Nome: " + nomeUsuario[i] + "; Cargo: " + cargoUsuario[i]);
+        for (int i = 0; i < qntUsuario; i++) {
+            if (!(cargoUsuario[i].equals("ALUNO DE GRADUACAO") || cargoUsuario[i].equals("ALUNO DE MESTRADO") || cargoUsuario[i].equals("ALUNO DE DOUTORADO"))) {
+                System.out.println("Id: " + i + "; Nome: " + nomeUsuario[i] + "; Cargo: " + cargoUsuario[i]);
             }
         }
     }
 
     public static void exibirRecursosEmAlocacao() {
-        for(int i = 0; i < qntRecurso; i++)
-        {
-            if(recursoStatus[i].equals("Em processo de alocacao"))
-            {
-                System.out.println("Id: "+ i + "; Responsavel: " + recursoResponsavel[i] + "; Tipo: " + recursoId[i]);
+        for (int i = 0; i < qntRecurso; i++) {
+            if (recursoStatus[i].equals("Em processo de alocacao")) {
+                System.out.println("Id: " + i + "; Responsavel: " + recursoResponsavel[i] + "; Tipo: " + recursoId[i]);
+            }
+        }
+
+    }
+
+    public static void exibirRecursosAlocado() {
+        for (int i = 0; i < qntRecurso; i++) {
+            if (recursoStatus[i].equals("Alocado")) {
+                System.out.println("Id: " + i + "; Responsavel: " + recursoResponsavel[i] + "; Tipo: " + recursoId[i]);
+            }
+        }
+
+    }
+
+    public static void exibirRecursosConcluido() {
+        for (int i = 0; i < qntRecurso; i++) {
+            if (recursoStatus[i].equals("Em andamento")) {
+                System.out.println("Id: " + i + "; Responsavel: " + recursoResponsavel[i] + "; Tipo: " + recursoId[i]);
             }
         }
 
     }
 
 
-
-    public static void pularLinha()
-    {
+    public static void pularLinha() {
         for (int i = 0; i < 10; i++)
             System.out.println("\n");
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         int comando;
         int n = 1;
-        while (n == 1)
-        {
-
+        while (n == 1) {
+            System.out.println("------Menu Principal------");
             System.out.println("1 - Cadastrar Usuario");
             System.out.println("2 - Cadastrar Recurso");
             System.out.println("3 - Alocar Recurso");
