@@ -50,9 +50,6 @@ public class Main {
     static int qntAtividadeLaboratorio = 0;
 
 
-    public static void exibirMenu() {
-
-    }
 
     public static void cadastrarUsuario() {
         Scanner scanner = new Scanner(System.in);
@@ -235,6 +232,7 @@ public class Main {
     }
 
     public static void relatorio() {
+        pularLinha();
         System.out.println("----------Relatorio---------");
         System.out.println("Numero de usuarios: " + qntUsuario);
         for (int i = 0; i < qntRecurso; i++) {
@@ -254,10 +252,11 @@ public class Main {
         System.out.println("Numero de atividade de aula: " + qntAtividadeAula);
         System.out.println("Numero de atividade de laboratorio: " + qntAtividadeLaboratorio);
         System.out.println("Numero de atividade de apresentacao: " + qntAtividadeApresentacao);
-        pularLinha();
+
     }
 
     public static void consultarUsuario() {
+        pularLinha();
         Scanner scanner = new Scanner(System.in);
         int id;
         System.out.println("Qual usuario voce deseja consultar?");
@@ -266,7 +265,7 @@ public class Main {
         scanner.nextLine();
         id = id - 1;
 
-        System.out.println("Nome: " + nomeUsuario[id] + "/n" + "Cargo: " + cargoUsuario[id] + "/n" + emailUsuario[id] + "/n");
+        System.out.println("Nome: " + nomeUsuario[id] + "\n" + "Cargo: " + cargoUsuario[id] + "\n" + emailUsuario[id] + "/n");
         System.out.println("Atividades:");
         for (int i = 0, j = 1; i < qntRecurso; i++) {
             if (recursoResponsavel[i].equals(nomeUsuario[id])) {
@@ -277,6 +276,7 @@ public class Main {
     }
 
     public static void consultarRecurso() {
+        pularLinha();
         Scanner scanner = new Scanner(System.in);
         int id;
         System.out.println("Qual recurso voce deseja consultar?");
@@ -300,6 +300,7 @@ public class Main {
     }
 
     public static void editarRecurso() {
+        pularLinha();
         Scanner scanner = new Scanner(System.in);
         int comando;
         int id;
@@ -318,7 +319,7 @@ public class Main {
 
             case 2:
                 System.out.println("Insira o id do recurso que voce deseja concluir");
-                exibirRecursosConcluido();
+                exibirRecursosEmAndamento();
                 id = scanner.nextInt();
                 recursoStatus[id] = "Concluido";
                 break;
@@ -381,7 +382,7 @@ public class Main {
 
     }
 
-    public static void exibirRecursosConcluido() {
+    public static void exibirRecursosEmAndamento() {
         for (int i = 0; i < qntRecurso; i++) {
             if (recursoStatus[i].equals("Em andamento")) {
                 System.out.println("Id: " + i + "; Responsavel: " + recursoResponsavel[i] + "; Tipo: " + recursoId[i]);
@@ -406,10 +407,11 @@ public class Main {
             System.out.println("1 - Cadastrar Usuario");
             System.out.println("2 - Cadastrar Recurso");
             System.out.println("3 - Alocar Recurso");
-            System.out.println("4 - Exibir Relatorio");
-            System.out.println("5 - Consultar Usuario");
-            System.out.println("6 - Consultar Recurso");
-            System.out.println("7 - Sair ");
+            System.out.println("4 - Editar Recurso");
+            System.out.println("5 - Exibir Relatorio");
+            System.out.println("6 - Consultar Usuario");
+            System.out.println("7 - Consultar Recurso");
+            System.out.println("8 - Sair ");
 
             comando = scanner.nextInt();
             pularLinha();
@@ -425,15 +427,18 @@ public class Main {
                     alocarRecurso(qntAuditorio, qntLaboratorio, qntProjetor, qntSalas);
                     break;
                 case 4:
-                    relatorio();
+                    editarRecurso();
                     break;
-                case 5:
-                    consultarUsuario();
+                case 5:      
+			    relatorio();
                     break;
                 case 6:
-                    consultarRecurso();
+                    consultarUsuario();
                     break;
                 case 7:
+                    consultarRecurso();
+                    break;
+                case 8:
                     n = 0;
                     break;
 
